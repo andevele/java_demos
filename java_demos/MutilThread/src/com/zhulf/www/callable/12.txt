@@ -1,0 +1,17 @@
+线程池
+
+ Android中常见的线程池有四种，FixedThreadPool、CachedThreadPool、ScheduledThreadPool、SingleThreadExecutor。
+
+ FixedThreadPool线程池是通过Executors的new FixedThreadPool方法来创建。它的特点是该线程池中的线程数量是固定的。即使线程处于闲置的状态，它们也不会被回收，除非线程池被关闭。当所有的线程都处于活跃状态的时候，新任务就处于队列中等待线程来处理。注意，FixedThreadPool只有核心线程，没有非核心线程。
+
+ 
+
+CachedThreadPool线程池是通过Executors的newCachedThreadPool进行创建的。它是一种线程数目不固定的线程池，它没有核心线程，只有非核心线程，当线程池中的线程都处于活跃状态，就会创建新的线程来处理新的任务。否则就会利用闲置的线程来处理新的任务。线程池中的线程都有超时机制，这个超时机制时长是60s，超过这个时间，闲置的线程就会被回收。这种线程池适合处理大量并且耗时较少的任务。这里得说一下，CachedThreadPool的任务队列，基本都是空的。
+
+ 
+
+ScheduledThreadPool线程池是通过Executors的newScheduledThreadPool进行创建的，它的核心线程是固定的，但是非核心线程数是不固定的，并且当非核心线程一处于空闲状态，就立即被回收。这种线程适合执行定时任务和具有固定周期的重复任务。
+
+ 
+
+SingleThreadExecutor线程池是通过Executors的newSingleThreadExecutor方法来创建的，这类线程池中只有一个核心线程，也没有非核心线程，这就确保了所有任务能够在同一个线程并且按照顺序来执行，这样就不需要考虑线程同步的问题。
